@@ -1,0 +1,15 @@
+<ion-header>
+     <ion-navbar>
+        <ion-title>Oh My Game</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content padding>
+    <ion-list>
+        <button ion-button color="dark" round *ngFor="let level of levels" (click)="levelTapped($event, level)">
+            {{level.title}}
+        </button>
+    </ion-list>
+    <div *ngIf="selectedLevel" padding>
+      You navigated here from <b>{{selectedLevel.id}}</b>
+    </div>
+</ion-content>

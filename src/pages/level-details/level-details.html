@@ -1,0 +1,11 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{selectedLevel.tile}}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <div *ngIf="selectedLevel" class="selection">
+        <b>{{selectedLevel.title}}</b>
+    </div>
+</ion-content>
