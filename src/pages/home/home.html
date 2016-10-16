@@ -3,12 +3,23 @@
         <ion-title>Oh My Game</ion-title>
     </ion-navbar>
 </ion-header>
-<ion-content padding>
-    <ion-list>
-        <button ion-button color="dark" round *ngFor="let level of levels" (click)="levelTapped($event, level)">
-            {{level.title}}
+<ion-content padding id="content">
+<!--
+    <canvas #canvas
+            [attr.width]='_size'
+            [attr.height]='_size'>
+    </canvas>
+-->
+        <button ion-button
+                color="secondary" 
+                clear 
+                *ngFor="let level of levels" 
+                (click)="levelTapped($event, level)"
+                [style.left.px]="level.x" 
+                [style.bottom.px]="level.y"
+        >
+            {{level.id}}
         </button>
-    </ion-list>
     <div *ngIf="selectedLevel" padding>
       You navigated here from <b>{{selectedLevel.id}}</b>
     </div>
