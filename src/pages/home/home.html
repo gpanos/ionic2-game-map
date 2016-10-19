@@ -8,7 +8,6 @@
     <canvas #canvas></canvas>
         <button ion-button
                 color="secondary"
-                clear 
                 *ngFor="let level of levels" 
                 id="button{{level.id}}"
                 (click)="levelTapped($event, level)"

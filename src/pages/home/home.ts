@@ -8,7 +8,7 @@ import { LevelDetailsPage } from '../level-details/level-details';
 @Component({
   templateUrl: 'home.html',
   styles: [
-      'button { z-index:2; position:absolute; border-radius:50%; border:solid 1px;}',
+      'button { z-index:2; position:absolute; border-radius:50%; width: 50px; height: 50px;}',
       'canvas {z-index:1}'
   ]
 
@@ -115,7 +115,8 @@ export class HomePage {
        var scrollContent = this.el.nativeElement.querySelector( '.scroll-content' );
        var ptsa = [];
        points.forEach( function( e ) {
-           e.y = scrollContent.offsetHeight - e.y;
+           e.y = scrollContent.offsetHeight - e.y - 25;
+           e.x += 21;
            ptsa.push(e.x, e.y);
        } );
        
@@ -123,6 +124,7 @@ export class HomePage {
        
        ctx.beginPath();
        this.drawLines(ctx, this.getCurvePoints( ptsa ));
+       ctx.strokeStyle = '#32db64';
        ctx.stroke();
    }
    
