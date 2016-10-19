@@ -3,17 +3,14 @@
         <ion-title>Oh My Game</ion-title>
     </ion-navbar>
 </ion-header>
-<ion-content padding id="content">
-<!--
-    <canvas #canvas
-            [attr.width]='_size'
-            [attr.height]='_size'>
-    </canvas>
--->
+
+<ion-content id="content"  style="overflow-y:scroll">
+    <canvas #canvas></canvas>
         <button ion-button
-                color="secondary" 
+                color="secondary"
                 clear 
                 *ngFor="let level of levels" 
+                id="button{{level.id}}"
                 (click)="levelTapped($event, level)"
                 [style.left.px]="level.x" 
                 [style.bottom.px]="level.y"
