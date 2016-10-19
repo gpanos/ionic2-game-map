@@ -1,5 +1,5 @@
 <ion-header>
-     <ion-navbar>
+     <ion-navbar color="primary">
         <ion-title>Oh My Game</ion-title>
     </ion-navbar>
 </ion-header>
@@ -7,7 +7,6 @@
 <ion-content id="content"  style="overflow-y:scroll">
     <canvas #canvas></canvas>
         <button ion-button
-                color="secondary"
                 *ngFor="let level of levels" 
                 id="button{{level.id}}"
                 (click)="levelTapped($event, level)"

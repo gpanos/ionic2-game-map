@@ -8,8 +8,8 @@ import { LevelDetailsPage } from '../level-details/level-details';
 @Component({
   templateUrl: 'home.html',
   styles: [
-      'button { z-index:2; position:absolute; border-radius:50%; width: 50px; height: 50px;}',
-      'canvas {z-index:1}'
+      'button { z-index:2; position:absolute; border-radius:50%; width: 50px; height: 50px; }',
+      'canvas { z-index:1 }'
   ]
 
 })
@@ -124,7 +124,8 @@ export class HomePage {
        
        ctx.beginPath();
        this.drawLines(ctx, this.getCurvePoints( ptsa ));
-       ctx.strokeStyle = '#32db64';
+       ctx.lineWidth = 10;
+       ctx.strokeStyle = '#387ef5';
        ctx.stroke();
    }
    
