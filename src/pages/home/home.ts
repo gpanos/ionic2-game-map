@@ -46,7 +46,7 @@ export class HomePage {
         private sanitizer: DomSanitizer
     ) {
         this.totalPoints      = NUMBER_OF_LEVELS;
-         this.activateLevelId = navParams.get('id');
+        this.activateLevelId = navParams.get('id');
     }
    
    ngAfterViewInit() { 
@@ -56,9 +56,24 @@ export class HomePage {
        var canvas = this.canvas;
        var content = document.getElementById('content');
        if (this.activateLevelId) {
-           for (let i = this.activateLevelId; i >= 1; i--) {
-               content.scrollTop = canvas.nativeElement.offsetHeight - (this.levels[id].y + (25 * this.levels[id].id));
-               this.levels[i].isActive = 1;
+           if (this.activateLevelId == this.totalPoints) {
+               let alert = this.alerCtrl.create({
+                   title: 'You finished them all !!',
+                   message: 'Click ok to start over',
+                   buttons: [{
+                       text: 'Ok',
+                       handler: data => {
+                           document.getElementById('content').scrollTop = canvas.nativeElement.offsetHeight;
+                       }
+                   }],
+                   enableBackdropDismiss: false
+               });
+               alert.present();
+           } else {
+               for (let i = this.activateLevelId; i >= 1; i--) {
+                   content.scrollTop = canvas.nativeElement.offsetHeight - (this.levels[id].y + (25 * this.levels[id].id));
+                   this.levels[i].isActive = 1;
+               }
            }
        } else {
              document.getElementById('content').scrollTop = canvas.nativeElement.offsetHeight;
@@ -134,10 +149,16 @@ export class HomePage {
     
    levelTapped(event, level) {
        if (!level.isActive) {
-           var previousLevel = level.id - 1;
            let alert = this.alerCtrl.create({
                title: 'Sorry..',
-               message: 'You should finish level ' + previousLevel + ' to continue!',
+               message: 'You should finish the previous level to continue!',
+               buttons: ['Got it']
+           });
+           alert.present();
+       } else if (level.id != this.totalPoints && this.levels[level.id].isActive){
+           let alert = this.alerCtrl.create({
+               title: 'Sorry..',
+               message: 'You already finished this level go forward !',
                buttons: ['Got it']
            });
            alert.present();
