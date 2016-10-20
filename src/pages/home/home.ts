@@ -1,5 +1,7 @@
 import { Component, ViewChild, ElementRef }  from '@angular/core';
-import { NavController, NavParams, Content } from 'ionic-angular';
+import {DomSanitizer} from '@angular/platform-browser';
+
+import { NavController, NavParams, Content, AlertController } from 'ionic-angular';
 
 import { LevelDetailsPage } from '../level-details/level-details';
 
@@ -36,8 +38,14 @@ export class HomePage {
     @ViewChild("canvas") canvas: ElementRef;     
     @ViewChild(Content) content: Content;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, public el: ElementRef) {
-        this.totalPoints = NUMBER_OF_LEVELS;
+    constructor(
+        public navCtrl   : NavController, 
+        public navParams : NavParams, 
+        public el        : ElementRef, 
+        public alerCtrl  : AlertController,
+        private sanitizer: DomSanitizer
+    ) {
+        this.totalPoints      = NUMBER_OF_LEVELS;
          this.activateLevelId = navParams.get('id');
     }
    
@@ -125,9 +133,19 @@ export class HomePage {
     }
     
    levelTapped(event, level) {
-     this.navCtrl.push(LevelDetailsPage, {
-       level: level
-     });
+       if (!level.isActive) {
+           var previousLevel = level.id - 1;
+           let alert = this.alerCtrl.create({
+               title: 'Sorry..',
+               message: 'You should finish level ' + previousLevel + ' to continue!',
+               buttons: ['Got it']
+           });
+           alert.present();
+       } else {
+           this.navCtrl.push(LevelDetailsPage, {
+               level: level
+           });
+       }
    }
    
    setCanvas(canvas) {
@@ -137,6 +155,11 @@ export class HomePage {
        canvas.nativeElement.style.height = scrollContent.style.height;
        canvas.nativeElement.width        = canvas.nativeElement.offsetWidth;
        canvas.nativeElement.height       = canvas.nativeElement.offsetHeight;
+   }
+   
+   setText(level) {
+       var text = level.isActive ? level.id : '?';
+       return this.sanitizer.bypassSecurityTrustHtml(text);
    }
    
    drawCurve(points) {
