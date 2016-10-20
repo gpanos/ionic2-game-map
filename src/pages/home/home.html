@@ -12,10 +12,8 @@
                 (click)="levelTapped($event, level)"
                 [style.left.px]="level.x" 
                 [style.bottom.px]="level.y"
+                [disabled]="!level.isActive"
         >
             <span>{{level.id}}</span>
         </button>
-    <div *ngIf="selectedLevel" padding>
-      You navigated here from <b>{{selectedLevel.id}}</b>
-    </div>
 </ion-content>

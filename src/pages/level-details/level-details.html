@@ -3,9 +3,17 @@
         <ion-title>{{selectedLevel.tile}}</ion-title>
     </ion-navbar>
 </ion-header>
-
 <ion-content padding>
-    <div *ngIf="selectedLevel" class="selection">
-        <b>{{selectedLevel.title}}</b>
+    <ion-card (tap)="tapEvent($event)">
+        <ion-card-header>
+            {{selectedLevel.title}}
+        </ion-card-header>
+        <ion-item>{{message}}</ion-item>
+    </ion-card>
+    <br>
+    <br>
+    <br>
+    <div id="progressbar-wrapper">
+      <div id="progress" [style.width.px]="tap"></div>
     </div>
 </ion-content>

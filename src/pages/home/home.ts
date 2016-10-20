@@ -1,82 +1,109 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-
+import { Component, ViewChild, ElementRef }  from '@angular/core';
 import { NavController, NavParams, Content } from 'ionic-angular';
 
 import { LevelDetailsPage } from '../level-details/level-details';
 
+/*
+ * * * * * * * * * * * * *
+ * YOUR ATTENTION PLEASE *
+ * * * * * * * * * * * * *
+ *
+ * Change the following constant 
+ * to increase or decrease the
+ * number of level ! ! ! !
+ */
+const NUMBER_OF_LEVELS = 15;
 
 @Component({
   templateUrl: 'home.html',
   styles: [
-      'button { z-index:2; position:absolute; border-radius:50%; width: 50px; height: 50px; -webkit-transform: translate3d(0,0,0);}',
-      'canvas { z-index:1 }',
-      'span { z-index:3 }'
+      'button {z-index:2; position:absolute; border-radius:50%; width: 50px; height: 50px; -webkit-transform: translate3d(0,0,0);}',
+      'canvas {z-index:1}',
+      'span {z-index:3}'
   ]
 
 })
+
 export class HomePage {
+    
     selectedLevel  : any;
     containerWidth : number;
     containerHeight: number;
     totalPoints    : number;
-    
-    levels: Array<{ id: number, title: string, x: number, y: number }>;
+    activateLevelId: number = null;
+    levels         : Array<{id: number, title: string, x: number, y: number, isActive:number}>;
 
-    @ViewChild( "canvas" ) canvas: ElementRef; 
-    
-    @ViewChild( Content ) content: Content;
+    @ViewChild("canvas") canvas: ElementRef;     
+    @ViewChild(Content) content: Content;
 
-   constructor( public navCtrl: NavController, public navParams: NavParams, public el: ElementRef ) { }
+    constructor(public navCtrl: NavController, public navParams: NavParams, public el: ElementRef) {
+        this.totalPoints = NUMBER_OF_LEVELS;
+         this.activateLevelId = navParams.get('id');
+    }
    
    ngAfterViewInit() { 
        this.generateLevels();
-       document.getElementById( "content" ).scrollTop = this.canvas.nativeElement.offsetHeight;
+       
+       var id     = this.activateLevelId;
+       var canvas = this.canvas;
+       var content = document.getElementById('content');
+       if (this.activateLevelId) {
+           for (let i = this.activateLevelId; i >= 1; i--) {
+               content.scrollTop = canvas.nativeElement.offsetHeight - (this.levels[id].y + (25 * this.levels[id].id));
+               this.levels[i].isActive = 1;
+           }
+       } else {
+             document.getElementById('content').scrollTop = canvas.nativeElement.offsetHeight;
+       }
+       
     }
     
-    fixScroll( maxHeight ) {
-        if ( maxHeight > this.containerHeight ){
-            var scrollContent = this.el.nativeElement.querySelector( '.scroll-content' );
-            scrollContent.style.height = maxHeight + "px";
+    fixScroll(maxHeight) {
+        if (maxHeight > this.containerHeight){
+            var scrollContent = this.el.nativeElement.querySelector('.scroll-content');
+            scrollContent.style.height = maxHeight + 'px';
         }
     }
     
     generateLevels() {
-        this.containerWidth  = document.getElementById( "content" ).offsetWidth;
-        this.containerHeight = document.getElementById( "content" ).offsetHeight;
-        this.selectedLevel   = this.navParams.get( 'level' );
+        this.containerWidth  = document.getElementById('content').offsetWidth;
+        this.containerHeight = document.getElementById('content').offsetHeight;
+        this.selectedLevel   = this.navParams.get('level');
         this.levels          = [];
-        //TODO: Make it constant
-        this.totalPoints = 15;
         
         var stepY = 80;
-        if ( this.containerHeight > this.totalPoints * stepY ) {
-            stepY = Math.floor( this.containerHeight / this.totalPoints );
+        
+        if (this.containerHeight > this.totalPoints * stepY) {
+            stepY = Math.floor(this.containerHeight / this.totalPoints);
         }
         
         // position first point
         var xPos = 50;
         var yPos = 50;
         // align left - right points
-        var counter = 2;
-        var coords = [];
-        
-        for ( let i = 1; i <= this.totalPoints; i++ ) {
+        var counter  = 2;
+        var coords   = [];
+        var isActive = 1;
+        for (let i = 1; i <= this.totalPoints; i++) {
             this.levels.push({
-                id: i,
+                id   : i,
                 title: 'Level ' + i,
-                x: xPos,
-                y: yPos
+                x    : xPos,
+                y    : yPos,
+                isActive: isActive                
             });
+            
+            isActive = 0;
             
             coords.push ({
                 x: xPos,
                 y: yPos
             })
             
-            if ( counter % 2 == 0 ) {
-                xPos = this.containerWidth - 120 * this.getRandomInt( 1, 3 );
+            if (counter % 2 == 0) {
+                xPos = this.containerWidth - 120 * this.getRandomInt(1, 3);
             } else {
-                xPos = 50 * this.getRandomInt( 1, 3 );
+                xPos = 50 * this.getRandomInt(1, 3);
             }
 
             yPos += stepY;
@@ -84,43 +111,44 @@ export class HomePage {
             counter++;
         }
         
-        this.fixScroll( yPos );   
-        this.setCanvas( this.canvas ); 
-        this.drawCurve( coords );
-
+        this.fixScroll(yPos);   
+        this.setCanvas(this.canvas); 
+        this.drawCurve(coords);
     }
     
-    getRandomInt( min, max ) {
-        min = Math.ceil( min );
-        max = Math.floor( max );
-        return Math.floor( Math.random() * ( max - min ) ) + min;
+    getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        
+        return Math.floor(Math.random() * (max - min)) + min;
+        
     }
     
-   levelTapped( event, level ) {
-     this.navCtrl.push( LevelDetailsPage, {
+   levelTapped(event, level) {
+     this.navCtrl.push(LevelDetailsPage, {
        level: level
      });
    }
    
-   setCanvas( canvas ) {
-       var scrollContent = this.el.nativeElement.querySelector( '.scroll-content' );
+   setCanvas(canvas) {
+       var scrollContent = this.el.nativeElement.querySelector('.scroll-content');
 
-       canvas.nativeElement.style.width = scrollContent.style.width //'100%';
-       canvas.nativeElement.style.height = scrollContent.style.height; //'100%';
-       canvas.nativeElement.width  = canvas.nativeElement.offsetWidth;
-       canvas.nativeElement.height = canvas.nativeElement.offsetHeight;
+       canvas.nativeElement.style.width  = scrollContent.style.width;
+       canvas.nativeElement.style.height = scrollContent.style.height;
+       canvas.nativeElement.width        = canvas.nativeElement.offsetWidth;
+       canvas.nativeElement.height       = canvas.nativeElement.offsetHeight;
    }
    
-   drawCurve( points ) {
-       var scrollContent = this.el.nativeElement.querySelector( '.scroll-content' );
+   drawCurve(points) {
+       var scrollContent = this.el.nativeElement.querySelector('.scroll-content');
        var ptsa = [];
-       points.forEach( function( e ) {
+       points.forEach(function(e) {
            e.y = scrollContent.offsetHeight - e.y - 25;
            e.x += 21;
            ptsa.push(e.x, e.y);
-       } );
+       });
        
-       let ctx: CanvasRenderingContext2D = this.canvas.nativeElement.getContext( "2d" );
+       let ctx: CanvasRenderingContext2D = this.canvas.nativeElement.getContext( '2d' );
        
        ctx.beginPath();
        this.drawLines(ctx, this.getCurvePoints( ptsa ));
@@ -129,7 +157,7 @@ export class HomePage {
        ctx.stroke();
    }
    
-   getCurvePoints( pts ) {
+   getCurvePoints(pts) {
        var tension       = 0.5;
        var numOfSegments = 16;
 
@@ -149,15 +177,15 @@ export class HomePage {
        _pts.push(pts[pts.length - 2]);
        _pts.push(pts[pts.length - 1]);
        
-       for ( let i = 2; i < ( _pts.length - 4 ); i += 2 ) {
-           for ( let t = 0; t <= numOfSegments; t++ ) {
+       for (let i = 2; i < (_pts.length - 4); i += 2) {
+           for (let t = 0; t <= numOfSegments; t++) {
                
                // calc tension vectors
-               t1x = ( _pts[i+2] - _pts[i-2] ) * tension;
-               t2x = ( _pts[i+4] - _pts[i] ) * tension;
+               t1x = (_pts[i+2] - _pts[i-2]) * tension;
+               t2x = (_pts[i+4] - _pts[i]) * tension;
 
-               t1y = ( _pts[i+3] - _pts[i-1] ) * tension;
-               t2y = ( _pts[i+5] - _pts[i+1] ) * tension;
+               t1y = (_pts[i+3] - _pts[i-1]) * tension;
+               t2y = (_pts[i+5] - _pts[i+1]) * tension;
                
                // calc step
                st = t / numOfSegments;
@@ -182,9 +210,10 @@ export class HomePage {
    }
    
    drawLines( ctx, pts ) {
-       ctx.moveTo( pts[0], pts[1] );
-       for ( let i = 2; i < pts.length - 1; i += 2 ){
-           ctx.lineTo( pts[i], pts[i+1] );
+       ctx.moveTo(pts[0], pts[1]);
+       for (let i = 2; i < pts.length - 1; i += 2){
+           ctx.lineTo(pts[i], pts[i+1]);
        } 
    }
+   
 }
