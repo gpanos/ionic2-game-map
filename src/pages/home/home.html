@@ -13,7 +13,7 @@
                 [style.left.px]="level.x" 
                 [style.bottom.px]="level.y"
         >
-            {{level.id}}
+            <span>{{level.id}}</span>
         </button>
     <div *ngIf="selectedLevel" padding>
       You navigated here from <b>{{selectedLevel.id}}</b>

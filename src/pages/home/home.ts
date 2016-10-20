@@ -8,8 +8,9 @@ import { LevelDetailsPage } from '../level-details/level-details';
 @Component({
   templateUrl: 'home.html',
   styles: [
-      'button { z-index:2; position:absolute; border-radius:50%; width: 50px; height: 50px; }',
-      'canvas { z-index:1 }'
+      'button { z-index:2; position:absolute; border-radius:50%; width: 50px; height: 50px; -webkit-transform: translate3d(0,0,0);}',
+      'canvas { z-index:1 }',
+      'span { z-index:3 }'
   ]
 
 })
@@ -25,12 +26,11 @@ export class HomePage {
     
     @ViewChild( Content ) content: Content;
 
-   constructor( public navCtrl: NavController, public navParams: NavParams, public el: ElementRef ) {   
-
-   }
+   constructor( public navCtrl: NavController, public navParams: NavParams, public el: ElementRef ) { }
    
    ngAfterViewInit() { 
        this.generateLevels();
+       document.getElementById( "content" ).scrollTop = this.canvas.nativeElement.offsetHeight;
     }
     
     fixScroll( maxHeight ) {
