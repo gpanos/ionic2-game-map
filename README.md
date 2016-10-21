@@ -1,6 +1,6 @@
 # ionic2-game-map
 
-
+#Installation Instructions
 - clone https://github.com/gpanos/ionic2-game-map.git
 - download the latest installer for Node.js and install it
 - install the latest ionic version (You may need to add “sudo” in front of these commands to install the utilities globally):
@@ -21,4 +21,3 @@
 ![alt tag](https://github.com/gpanos/ionic2-game-map/blob/master/images/level_details_progress.png?raw=true)
 ## Level completed
 ![alt tag](https://github.com/gpanos/ionic2-game-map/blob/master/images/level_completed.png?raw=true)
-#Installation Instructions
