@@ -58,7 +58,7 @@ export class HomePage {
        if (this.activateLevelId) {
            if (this.activateLevelId == this.totalPoints) {
                let alert = this.alerCtrl.create({
-                   title: 'You finished them all !!',
+                   title: 'You finished them alL!!',
                    message: 'Click ok to start over',
                    buttons: [{
                        text: 'Ok',
@@ -151,14 +151,14 @@ export class HomePage {
        if (!level.isActive) {
            let alert = this.alerCtrl.create({
                title: 'Sorry..',
-               message: 'You should finish the previous level to continue!',
+               message: 'Finish the previous level to continue!',
                buttons: ['Got it']
            });
            alert.present();
        } else if (level.id != this.totalPoints && this.levels[level.id].isActive){
            let alert = this.alerCtrl.create({
                title: 'Sorry..',
-               message: 'You already finished this level go forward !',
+               message: 'You finished this level go forward!',
                buttons: ['Got it']
            });
            alert.present();

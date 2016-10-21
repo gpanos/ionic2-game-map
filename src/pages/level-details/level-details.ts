@@ -42,8 +42,8 @@ export class LevelDetailsPage {
     
     doAlert() {
         let alert = this.alerCtrl.create({
-            title: 'Congrats !!',
-            message: 'You finished ' + this.selectedLevel.title + ' !' ,
+            title: 'Congrats!!',
+            message: 'You finished ' + this.selectedLevel.title + '!' ,
             buttons: [{
                 text: 'Ok',
                 handler: data => {
