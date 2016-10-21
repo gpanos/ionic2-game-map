@@ -1,14 +1,5 @@
 # ionic2-game-map
 
-## Home page
-![alt tag](https://github.com/gpanos/ionic2-game-map/blob/master/images/level_details_progress.png?raw=true)
-## Alert when tap locked level
-![alt tag](https://github.com/gpanos/ionic2-game-map/blob/master/images/alert_level_not_completed.png?raw=true)
-## Level details
-![alt tag](https://github.com/gpanos/ionic2-game-map/blob/master/images/level_details_progress.png?raw=true)
-## Level completed
-![alt tag](https://github.com/gpanos/ionic2-game-map/blob/master/images/level_completed.png?raw=true)
-#Installation Instructions
 
 - clone https://github.com/gpanos/ionic2-game-map.git
 - download the latest installer for Node.js and install it
@@ -21,3 +12,13 @@
 #Test it
 
 * It looks better in Chrome phone simulator
+
+## Home page
+![alt tag](https://github.com/gpanos/ionic2-game-map/blob/master/images/level_details_progress.png?raw=true)
+## Alert when tap locked level
+![alt tag](https://github.com/gpanos/ionic2-game-map/blob/master/images/alert_level_not_completed.png?raw=true)
+## Level details
+![alt tag](https://github.com/gpanos/ionic2-game-map/blob/master/images/level_details_progress.png?raw=true)
+## Level completed
+![alt tag](https://github.com/gpanos/ionic2-game-map/blob/master/images/level_completed.png?raw=true)
+#Installation Instructions
