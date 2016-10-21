@@ -7,9 +7,8 @@
 * install the latest ionic version (You may need to add “sudo” in front of these commands to install the utilities globally):
     npm install -g ionic cordova
 * cd to the app's root directory
-* execute:
-    npm install
-    ionic serve
+* execute: npm install
+* execute: ionic serve
     
 #Test it
 
