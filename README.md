@@ -14,7 +14,7 @@
 * It looks better in Chrome phone simulator
 
 ## Home page
-![alt tag](https://github.com/gpanos/ionic2-game-map/blob/master/images/level_details_progress.png?raw=true)
+![alt tag](https://github.com/gpanos/ionic2-game-map/blob/master/images/landing_page.png?raw=true)
 ## Alert when tap locked level
 ![alt tag](https://github.com/gpanos/ionic2-game-map/blob/master/images/alert_level_not_completed.png?raw=true)
 ## Level details
