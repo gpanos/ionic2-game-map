@@ -58,7 +58,7 @@ export class HomePage {
        if (this.activateLevelId) {
            if (this.activateLevelId == this.totalPoints) {
                let alert = this.alerCtrl.create({
-                   title: 'You finished them alL!!',
+                   title: 'You finished them all!!',
                    message: 'Click ok to start over',
                    buttons: [{
                        text: 'Ok',
